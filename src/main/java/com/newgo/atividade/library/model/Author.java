@@ -1,11 +1,14 @@
 package com.newgo.atividade.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+
 import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
-public class Author {
+public class Author implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +16,7 @@ public class Author {
     private String firstName;
     private String lastName;
     @ManyToMany(mappedBy = "authors")
+    @JsonIgnore
     private Set<Book> books;
     private LocalDate birthdate;
 
