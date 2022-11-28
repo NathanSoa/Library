@@ -1,16 +1,21 @@
 package com.newgo.atividade.library.model.valueobject;
 
 import javax.persistence.Embeddable;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Embeddable
 public class ISBN {
 
-    private String number;
+    private String isbn;
 
     public ISBN() {
 
+    }
+
+    public ISBN(String isbn) {
+        setIsbn(isbn);
     }
 
     private boolean validate(String value) {
@@ -19,13 +24,13 @@ public class ISBN {
         return matcher.matches();
     }
 
-    public String getNumber() {
-        return number;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setNumber(String number) {
-        if(!validate(number))
+    public void setIsbn(String isbn) {
+        if(!validate(isbn))
             throw new IllegalArgumentException("ISBN should be in valid format!");
-        this.number = number;
+        this.isbn = isbn;
     }
 }
