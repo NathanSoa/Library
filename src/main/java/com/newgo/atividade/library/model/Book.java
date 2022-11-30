@@ -27,8 +27,7 @@ public class Book implements BaseEntity {
     @Embedded
     private ISBN isbn;
 
-    @Embedded
-    private Publisher publisher;
+    private String publisher;
 
     public Book() {
 
@@ -83,10 +82,10 @@ public class Book implements BaseEntity {
     }
 
     public String getPublisher() {
-        return publisher.getPublisherName();
+        return publisher;
     }
 
-    public void setPublisher(Publisher publisher) {
+    public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 }

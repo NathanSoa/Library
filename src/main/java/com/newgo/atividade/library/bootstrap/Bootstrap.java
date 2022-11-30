@@ -2,7 +2,6 @@ package com.newgo.atividade.library.bootstrap;
 
 import com.newgo.atividade.library.model.Author;
 import com.newgo.atividade.library.model.Book;
-import com.newgo.atividade.library.model.Publisher;
 import com.newgo.atividade.library.model.valueobject.ISBN;
 import com.newgo.atividade.library.service.AuthorService;
 import com.newgo.atividade.library.service.BookService;
@@ -41,7 +40,7 @@ public class Bootstrap implements CommandLineRunner {
         authors.add(author);
         book.setAuthors(authors);
         book.setPublicationDate(LocalDate.now());
-        book.setPublisher(new Publisher("Publisher"));
+        book.setPublisher("Publisher");
 
         bookService.save(book);
     }
