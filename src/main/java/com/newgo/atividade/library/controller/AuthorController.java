@@ -1,5 +1,6 @@
 package com.newgo.atividade.library.controller;
 
+import com.newgo.atividade.library.dto.AuthorDTO;
 import com.newgo.atividade.library.model.Author;
 import com.newgo.atividade.library.service.AuthorService;
 
@@ -23,13 +24,13 @@ public class AuthorController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<Author> findAll(Pageable pageable) {
+    public Page<AuthorDTO> findAll(Pageable pageable) {
         return authorService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Author> findById(@PathVariable Long id){
-        Author author = authorService.findById(id);
+    public ResponseEntity<AuthorDTO> findById(@PathVariable Long id){
+        AuthorDTO author = authorService.findById(id);
         return author == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(author);
     }
 
@@ -46,8 +47,8 @@ public class AuthorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Author> update(@PathVariable Long id, @RequestBody Author author) {
-        Author updatedAuthor = authorService.update(id, author);
+    public ResponseEntity<AuthorDTO> update(@PathVariable Long id, @RequestBody Author author) {
+        AuthorDTO updatedAuthor = authorService.update(id, author);
         return ResponseEntity.ok(updatedAuthor);
     }
 }
