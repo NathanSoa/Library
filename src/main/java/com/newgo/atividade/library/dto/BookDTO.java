@@ -1,35 +1,20 @@
-package com.newgo.atividade.library.model.dto;
+package com.newgo.atividade.library.dto;
 
-import com.newgo.atividade.library.model.Author;
-import com.newgo.atividade.library.model.Book;
+import com.newgo.atividade.library.model.valueobject.Name;
 
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.stream.Collectors;
-
 public class BookDTO {
 
     private String title;
     private LocalDate publicationDate;
     private Integer edition;
-    private Set<String> authors;
+    private Set<Name> authors;
     private String isbn;
     private String publisher;
 
     public BookDTO() {
 
-    }
-
-    public BookDTO(Book book) {
-        this.title = book.getTitle();
-        this.publicationDate = book.getPublicationDate();
-        this.edition = book.getEdition();
-        this.authors = book.getAuthors()
-                                .stream()
-                                .map(Author::getFullName)
-                                .collect(Collectors.toSet());
-        this.isbn = book.getIsbn().getIsbn();
-        this.publisher = book.getPublisher();
     }
 
     public String getTitle() {
@@ -56,11 +41,11 @@ public class BookDTO {
         this.edition = edition;
     }
 
-    public Set<String> getAuthors() {
+    public Set<Name> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Set<String> authors) {
+    public void setAuthors(Set<Name> authors) {
         this.authors = authors;
     }
 
