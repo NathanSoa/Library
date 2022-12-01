@@ -1,6 +1,6 @@
 package com.newgo.atividade.library.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.newgo.atividade.library.model.valueobject.Name;
 
 import javax.persistence.*;
 
@@ -13,10 +13,9 @@ public class Author implements BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
+    @Embedded
+    private Name name;
     @ManyToMany(mappedBy = "authors")
-    @JsonIgnore
     private Set<Book> books;
     private LocalDate birthdate;
 
@@ -32,24 +31,12 @@ public class Author implements BaseEntity {
         this.id = id;
     }
 
-    public String getFullName() {
-        return firstName + " " + lastName;
+    public Name getName() {
+        return name;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(Name name) {
+        this.name = name;
     }
 
     public Set<Book> getBooks() {
