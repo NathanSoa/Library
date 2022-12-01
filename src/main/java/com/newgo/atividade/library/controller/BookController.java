@@ -50,6 +50,6 @@ public class BookController {
     @PutMapping("/{id}")
     public ResponseEntity<BookDTO> update(@PathVariable Long id, @RequestBody Book book) {
         BookDTO updatedBook = bookService.update(id, book);
-        return ResponseEntity.ok(updatedBook);
+        return updatedBook == null ? ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build() : ResponseEntity.ok(updatedBook);
     }
 }

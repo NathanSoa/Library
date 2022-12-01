@@ -49,6 +49,6 @@ public class AuthorController {
     @PutMapping("/{id}")
     public ResponseEntity<AuthorDTO> update(@PathVariable Long id, @RequestBody Author author) {
         AuthorDTO updatedAuthor = authorService.update(id, author);
-        return ResponseEntity.ok(updatedAuthor);
+        return updatedAuthor == null ? ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build() : ResponseEntity.ok(updatedAuthor);
     }
 }
