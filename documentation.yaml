@@ -1,0 +1,243 @@
+openapi: 3.0.3
+info:
+  title: Simple Library API
+  description: A simple API for books and authors management
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+    description: development server
+paths:
+  /book:
+    get:
+      description: return all books
+      responses:
+        200:
+          description: OK - return all books with pagination
+    post:
+      description: Receive an book object and save it on database, authors should be already registered and isbn should be in valid format
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Book title
+                  example: My Book
+                  required: true
+                publicationDate:
+                  type: string
+                  description: Book publication date
+                  example: 2020-10-10
+                  required: true
+                edition:
+                  type: integer
+                  description: Book edition number
+                  example: 2
+                  required: true
+                authors:
+                  type: array
+                  description: Array of authors id
+                  example:
+                    "id": 1
+                  required: true
+                isbn:
+                  type: string
+                  description: Isbn number, should have 10 or 13 number
+                  example: 978-1-56619-909-4
+                  required: true
+                publisher:
+                  type: string
+                  description: Publisher Name
+                  example: Example Publisher
+                  required: true
+      responses:
+        201:
+          description: CREATED - a new book was successfully saved
+        400:
+          description: BAD_REQUEST - Invalid property was sent in book object
+  /book/{id}:
+    get:
+      description: Return a book identified by an id passed on path
+      parameters:
+        - name: "id"
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: OK - a book was found and sent back to client
+        404:
+          description: NOT_FOUND - No book was found
+    delete:
+      description: Delete a book identified by an id passed on path
+      parameters:
+        - name: "id"
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: NO_CONTENT - a book was found and successfully deleted
+        400:
+          description: BAD_REQUEST - no book was found to be deleted
+    put:
+      description: Update a book with a new object passed through body, the book that will be update is identified by an id passed on path
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: OK - a book was successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: Book title
+                    example: My Book
+                  publicationDate:
+                    type: string
+                    description: Book publication date
+                    example: 2020-10-10
+                  edition:
+                    type: integer
+                    description: Book edition number
+                    example: 2
+                  authors:
+                    type: array
+                    description: Array of authors first and last name
+                    example:
+                      firstName: Name
+                      lastName: OtherName
+                  isbn:
+                    type: string
+                    description: Isbn number
+                    example: 978-1-56619-909-4
+                  publisher:
+                    type: string
+                    description: Publisher Name
+                    example: Example Publisher
+        406:
+          description: NOT_ACCEPTABLE - no book was found to be updated
+  /author:
+    get:
+      description: return all authors
+      responses:
+        200:
+          description: OK - return all authors with pagination
+    post:
+      description: Receive an author object and save it on database
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: object
+                  description: an object with first and last name
+                  example:
+                    firstName: First
+                    lastName: Last
+                  required: true
+                birthdate:
+                  type: string
+                  description: Author birthdate
+                  example: 2020-10-10
+                  required: true
+      responses:
+        201:
+          description: CREATED - a new author was successfully saved
+        400:
+          description: BAD_REQUEST - Invalid property was sent in author object
+  /author/{id}:
+    get:
+      description: Return an author identified by an id passed on path
+      parameters:
+        - name: "id"
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: object
+                    description: an object with first and last name
+                    example:
+                      firstName: First
+                      lastName: Last
+                  books:
+                    type: array
+                    description: An array with books
+                    example:
+                      - First Book
+                      - Second Book
+                  birthdate:
+                    type: string
+                    description: Author birthdate
+                    example: 2020-10-10
+          description: OK - an author was found and sent back to client
+        404:
+          description: NOT_FOUND - No author was found
+    delete:
+      description: Delete a author identified by an id passed on path
+      parameters:
+        - name: "id"
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: NO_CONTENT - an author was found and successfully deleted
+        400:
+          description: BAD_REQUEST - no author was found to be deleted
+    put:
+      description: Update a author with a new object passed through body, the author that will be update is identified by an id passed on path
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: OK - a author was successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: object
+                    description: an object with first and last name
+                    example:
+                      firstName: First name
+                      lastName: Last name
+                  books:
+                    type: array
+                    description: An array with books
+                    example:
+                      - First Book
+                      - Second Book
+                  birthdate:
+                    type: string
+                    description: Author birthdate
+                    example: 2020-10-10
+        406:
+          description: NOT_ACCEPTABLE - no author was found to be updated
