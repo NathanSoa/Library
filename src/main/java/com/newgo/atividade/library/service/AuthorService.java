@@ -2,7 +2,6 @@ package com.newgo.atividade.library.service;
 
 import com.newgo.atividade.library.model.Author;
 import com.newgo.atividade.library.dto.AuthorDTO;
-import com.newgo.atividade.library.model.valueobject.Name;
 import com.newgo.atividade.library.repository.AuthorRepository;
 
 import org.modelmapper.ModelMapper;
@@ -49,7 +48,7 @@ public class AuthorService {
         }
 
         Author author = authorOptional.get();
-        BeanUtils.copyProperties(object, author, "id");
+        BeanUtils.copyProperties(object, author, "id", "books");
         save(author);
 
         return modelMapper.map(author, AuthorDTO.class);
