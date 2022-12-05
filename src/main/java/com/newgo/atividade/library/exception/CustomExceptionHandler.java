@@ -22,4 +22,9 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     protected  ResponseEntity<Object> handleInvalidAuthorException(InvalidAuthorException ex, WebRequest request) {
         return handleExceptionInternal(ex, new Error("Invalid author", ex.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
+
+    @ExceptionHandler({IllegalAuthorDeleteOperationException.class})
+    protected ResponseEntity<Object> handleIllegalAuthorDeleteOperationException(IllegalAuthorDeleteOperationException ex, WebRequest request) {
+        return handleExceptionInternal(ex, new Error("Illegal delete operation", ex.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 }
