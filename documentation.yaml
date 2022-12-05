@@ -195,7 +195,7 @@ paths:
         404:
           description: NOT_FOUND - No author was found
     delete:
-      description: Delete a author identified by an id passed on path
+      description: Delete a author identified by an id passed on path, cannot delete authors with books registered
       parameters:
         - name: "id"
           in: path
@@ -206,7 +206,7 @@ paths:
         204:
           description: NO_CONTENT - an author was found and successfully deleted
         400:
-          description: BAD_REQUEST - no author was found to be deleted
+          description: BAD_REQUEST - no author was found to be deleted or author was found but has books registered
     put:
       description: Update a author with a new object passed through body, the author that will be update is identified by an id passed on path
       parameters:
