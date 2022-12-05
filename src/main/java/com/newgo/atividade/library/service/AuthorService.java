@@ -1,5 +1,7 @@
 package com.newgo.atividade.library.service;
 
+import com.newgo.atividade.library.exception.IllegalAuthorDeleteOperationException;
+import com.newgo.atividade.library.exception.InvalidAuthorException;
 import com.newgo.atividade.library.model.Author;
 import com.newgo.atividade.library.dto.AuthorDTO;
 import com.newgo.atividade.library.repository.AuthorRepository;
@@ -55,6 +57,17 @@ public class AuthorService {
     }
 
     public void deleteById(Long id) {
+        Optional<Author> authorOptional = authorRepository.findById(id);
+
+        if(!authorOptional.isPresent()) {
+            throw new InvalidAuthorException("Author does not exists");
+        }
+
+        Author author = authorOptional.get();
+
+        if(author.getBooks().size() > 0)
+            throw new IllegalAuthorDeleteOperationException("Cannot delete any author that have books registered!");
+
         authorRepository.deleteById(id);
     }
 
